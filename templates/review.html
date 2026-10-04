@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="page-head centered">
+    <span class="eyebrow">TAHAP 04</span>
+    <h2>Review Data</h2>
+    <p>Pastikan pilihan dan seluruh dataset sudah benar sebelum masuk ke proses analisis.</p>
+</div>
+
+<div class="review-summary">
+    <div class="summary-card">
+        <div class="summary-icon">1</div>
+        <span>Jenjang Terpilih</span>
+        <strong>{{ state.jenjang|join(' + ') }}</strong>
+        <a href="{{ url_for('jenjang') }}">Ubah →</a>
+    </div>
+    <div class="summary-card">
+        <div class="summary-icon">2</div>
+        <span>Data Pendidikan</span>
+        {% for j in state.jenjang %}
+        <div class="summary-row"><b>{{ j }}</b><small>{{ state.pendidikan[j] or 'Belum diunggah' }}</small></div>
+        {% endfor %}
+        <a href="{{ url_for('data_pendidikan') }}">Periksa →</a>
+    </div>
+    <div class="summary-card">
+        <div class="summary-icon">3</div>
+        <span>Data Pendukung</span>
+        <div class="summary-row"><b>IPM</b><small>{{ state.ipm or 'Belum diunggah' }}</small></div>
+        <div class="summary-row"><b>Kemiskinan</b><small>{{ state.kemiskinan or 'Belum diunggah' }}</small></div>
+        <a href="{{ url_for('ipm_kemiskinan') }}">Periksa →</a>
+    </div>
+</div>
+
+<div class="review-ready">
+    <div class="ready-icon">✓</div>
+    <div>
+        <h3>Data siap dianalisis</h3>
+        <p>Setelah menekan tombol berikut, sistem dapat menjalankan preprocessing dan metode analisis penelitian.</p>
+    </div>
+</div>
+
+<div class="page-actions">
+    <a class="btn secondary" href="{{ url_for('ipm_kemiskinan') }}">← Kembali</a>
+    <a class="btn primary big" href="{{ url_for('hasil') }}">Mulai Analisis →</a>
+</div>
+
+{% endblock %}

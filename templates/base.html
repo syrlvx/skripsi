@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} | EduCluster</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="app-shell">
+
+    <aside class="sidebar" id="sidebar">
+        <a class="brand" href="{{ url_for('dashboard') }}">
+            <div class="brand-mark"><span></span></div>
+            <div>
+                <div class="brand-name">EduCluster</div>
+                <div class="brand-sub">Educational Analytics</div>
+            </div>
+        </a>
+
+        <nav class="nav">
+            <a class="nav-item {% if step == 0 %}active{% endif %}" href="{{ url_for('dashboard') }}">
+                <span class="nav-icon">⌂</span>
+                <span>Dashboard</span>
+            </a>
+
+            <div class="nav-label">TAHAP ANALISIS</div>
+
+            <a class="nav-item {% if step == 1 %}active{% endif %}" href="{{ url_for('jenjang') }}">
+                <span class="nav-step {% if step > 1 %}done{% endif %}">1</span>
+                <span>Jenjang Pendidikan</span>
+            </a>
+            <a class="nav-item {% if step == 2 %}active{% endif %}" href="{{ url_for('data_pendidikan') }}">
+                <span class="nav-step {% if step > 2 %}done{% endif %}">2</span>
+                <span>Data Pendidikan</span>
+            </a>
+            <a class="nav-item {% if step == 3 %}active{% endif %}" href="{{ url_for('ipm_kemiskinan') }}">
+                <span class="nav-step {% if step > 3 %}done{% endif %}">3</span>
+                <span>IPM & Kemiskinan</span>
+            </a>
+            <a class="nav-item {% if step == 4 %}active{% endif %}" href="{{ url_for('review') }}">
+                <span class="nav-step {% if step > 4 %}done{% endif %}">4</span>
+                <span>Review Data</span>
+            </a>
+            <a class="nav-item {% if step == 5 %}active{% endif %}" href="{{ url_for('hasil') }}">
+                <span class="nav-step {% if step > 5 %}done{% endif %}">5</span>
+                <span>Hasil Analisis</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="progress-label">
+                <span>Progress</span>
+                <strong>{{ (step / 5 * 100)|round|int }}%</strong>
+            </div>
+            <div class="progress-track"><div class="progress-fill" style="width:{{ (step / 5 * 100)|round|int }}%"></div></div>
+            <div class="status-card">
+                <span class="status-dot"></span>
+                <div>
+                    <strong>Prototype</strong>
+                    <small>Alur analisis aktif</small>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main">
+        <header class="topbar">
+            <button class="menu-button" onclick="toggleSidebar()">☰</button>
+            <div class="top-title">
+                <div class="breadcrumb">EduCluster / {{ title }}</div>
+                <h1>{{ title }}</h1>
+            </div>
+            {% if step > 0 %}
+            <div class="top-progress">
+                <span>TAHAP {{ step }} / 5</span>
+                <div class="mini-track"><div style="width:{{ (step / 5 * 100)|round|int }}%"></div></div>
+            </div>
+            {% endif %}
+        </header>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <div class="flash-wrap">
+              {% for category, message in messages %}
+                <div class="flash {{ category }}">{{ message }}</div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        <section class="content">
+            {% block content %}{% endblock %}
+        </section>
+    </main>
+</div>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="page-head">
+    <span class="eyebrow">TAHAP 03</span>
+    <h2>Data IPM & Kemiskinan</h2>
+    <p>Masukkan dua dataset pendukung. Keduanya berada pada tahap yang sama tetapi tetap berupa file terpisah.</p>
+</div>
+
+<form method="post" enctype="multipart/form-data">
+<div class="support-grid">
+    <div class="support-card">
+        <div class="support-title">
+            <div class="support-icon">↗</div>
+            <div><h3>Data IPM</h3><p>Indeks Pembangunan Manusia</p></div>
+        </div>
+        <label class="dropzone large">
+            <input type="file" name="ipm_file" accept=".xlsx,.xls" onchange="showFileName(this)">
+            <span class="upload-symbol">↑</span>
+            <strong>Pilih File IPM</strong>
+            <small>Format .XLSX / .XLS</small>
+            <span class="file-name"></span>
+        </label>
+        {% if state.ipm %}<div class="file-ok">✓ {{ state.ipm }}</div>{% endif %}
+    </div>
+
+    <div class="support-card">
+        <div class="support-title">
+            <div class="support-icon money">Rp</div>
+            <div><h3>Data Kemiskinan</h3><p>Tingkat Kemiskinan</p></div>
+        </div>
+        <label class="dropzone large">
+            <input type="file" name="kemiskinan_file" accept=".xlsx,.xls" onchange="showFileName(this)">
+            <span class="upload-symbol">↑</span>
+            <strong>Pilih File Kemiskinan</strong>
+            <small>Format .XLSX / .XLS</small>
+            <span class="file-name"></span>
+        </label>
+        {% if state.kemiskinan %}<div class="file-ok">✓ {{ state.kemiskinan }}</div>{% endif %}
+    </div>
+</div>
+
+<div class="page-actions">
+    <a class="btn secondary" href="{{ url_for('data_pendidikan') }}">← Kembali</a>
+    <button class="btn primary big" type="submit">Simpan & Lanjut ke Review →</button>
+</div>
+</form>
+
+{% endblock %}

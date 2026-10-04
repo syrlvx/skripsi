@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="welcome">
+    <div class="welcome-copy">
+        <span class="eyebrow">EDUCATIONAL ANALYTICS PLATFORM</span>
+        <h2>Selamat Datang di <strong>EduCluster</strong></h2>
+        <p>
+            Platform untuk membantu proses segmentasi kabupaten/kota berdasarkan
+            karakteristik pendidikan dan indikator pendukung secara terstruktur.
+        </p>
+
+        <div class="welcome-actions">
+            <a class="btn primary big" href="{{ url_for('jenjang') }}">Pilih Jenjang <span>→</span></a>
+            <a class="btn secondary" href="#alur">Lihat Alur</a>
+        </div>
+
+        <div class="welcome-note">
+            <span>✓</span>
+            <div><strong>Alur sederhana</strong><small>Pilih jenjang → masukkan data → review → analisis</small></div>
+        </div>
+    </div>
+
+    <div class="welcome-art">
+        <div class="art-circle one"></div>
+        <div class="art-circle two"></div>
+        <div class="art-card">
+            <div class="art-top"><span></span><span></span><span></span></div>
+            <div class="art-title"></div>
+            <div class="art-bars"><i></i><i></i><i></i><i></i><i></i></div>
+        </div>
+        <div class="art-dot d1"></div><div class="art-dot d2"></div>
+    </div>
+</div>
+
+<section class="dashboard-section" id="alur">
+    <div class="section-head">
+        <span class="eyebrow">ALUR SISTEM</span>
+        <h2>Proses Analisis EduCluster</h2>
+        <p>Setiap tahap dibuka setelah tahap sebelumnya selesai.</p>
+    </div>
+
+    <div class="flow-line">
+        {% for num, title, desc in [
+            (1,'Pilih Jenjang','Tentukan cakupan SD, SMP, SMA'),
+            (2,'Data Pendidikan','Upload data sesuai jenjang'),
+            (3,'IPM & Kemiskinan','Masukkan data pendukung'),
+            (4,'Review Data','Periksa kelengkapan data'),
+            (5,'Hasil Analisis','Lihat hasil dan visualisasi')
+        ] %}
+        <div class="flow-step">
+            <div class="flow-number">{{ num }}</div>
+            <strong>{{ title }}</strong>
+            <p>{{ desc }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<div class="welcome-bottom">
+    <div>
+        <strong>Siap memulai?</strong>
+        <span>Pilih jenjang pendidikan terlebih dahulu untuk melanjutkan ke tahap berikutnya.</span>
+    </div>
+    <a class="btn primary" href="{{ url_for('jenjang') }}">Mulai Sekarang →</a>
+</div>
+
+{% endblock %}

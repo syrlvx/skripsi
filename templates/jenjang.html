@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="page-head centered">
+    <span class="eyebrow">TAHAP 01</span>
+    <h2>Pilih Jenjang Pendidikan</h2>
+    <p>Pilih satu atau beberapa jenjang yang ingin dianalisis.</p>
+</div>
+
+<form method="post" id="jenjangForm">
+    <div class="level-grid">
+        {% for code, name, desc in [
+            ('SD','Sekolah Dasar','Pendidikan dasar'),
+            ('SMP','Sekolah Menengah Pertama','Pendidikan menengah pertama'),
+            ('SMA','Sekolah Menengah Atas','Pendidikan menengah atas')
+        ] %}
+        <div class="level-card {% if code in state.jenjang %}selected{% endif %}"
+             data-level="{{ code }}" role="button" tabindex="0"
+             aria-pressed="{% if code in state.jenjang %}true{% else %}false{% endif %}">
+            <input type="checkbox" name="jenjang" value="{{ code }}"
+                   {% if code in state.jenjang %}checked{% endif %}
+                   tabindex="-1" aria-hidden="true">
+
+            <div class="school-logo">{{ code }}</div>
+
+            <div class="level-copy">
+                <strong>{{ code }}</strong>
+                <span>{{ name }}</span>
+                <small>{{ desc }}</small>
+            </div>
+
+            <!-- Lingkaran ini adalah indikator pilihan:
+                 belum dipilih = polos/putih,
+                 dipilih = kuning. -->
+            <span class="select-circle" aria-hidden="true"></span>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="selected-panel">
+        <div class="selected-label">Jenjang terpilih</div>
+        <div id="selectedJenjang">
+            {% for j in state.jenjang %}
+                <b>{{ j }}</b>
+            {% else %}
+                <em>Belum ada jenjang yang dipilih</em>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="choice-hint">
+        Klik kartu atau lingkaran di sebelah kanan untuk memilih atau membatalkan jenjang.
+    </div>
+
+    <div class="page-actions">
+        <a class="btn secondary" href="{{ url_for('dashboard') }}">← Kembali</a>
+        <button class="btn primary big" type="submit" id="nextButton">
+            Lanjutkan ke Data Pendidikan →
+        </button>
+    </div>
+</form>
+
+{% endblock %}

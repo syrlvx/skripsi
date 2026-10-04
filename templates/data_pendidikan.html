@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="page-head">
+    <span class="eyebrow">TAHAP 02</span>
+    <h2>Masukkan Data Pendidikan</h2>
+    <p>Upload file Excel untuk setiap jenjang yang sudah kamu pilih pada tahap sebelumnya.</p>
+</div>
+
+<div class="selected-strip">
+    <span>Jenjang yang dianalisis:</span>
+    {% for j in state.jenjang %}<b>{{ j }}</b>{% endfor %}
+    <a href="{{ url_for('jenjang') }}">Ubah pilihan</a>
+</div>
+
+<div class="education-grid">
+{% for code, name in [('SD','Sekolah Dasar'),('SMP','Sekolah Menengah Pertama'),('SMA','Sekolah Menengah Atas')] %}
+{% if code in state.jenjang %}
+<form class="upload-card" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="jenjang" value="{{ code }}">
+    <div class="upload-card-top">
+        <div class="school-logo mini">{{ code }}</div>
+        <div><h3>Data {{ code }}</h3><p>{{ name }}</p></div>
+    </div>
+
+    <label class="dropzone">
+        <input type="file" name="file" accept=".xlsx,.xls" onchange="showFileName(this)">
+        <span class="upload-symbol">↑</span>
+        <strong>Pilih File {{ code }}</strong>
+        <small>Format .XLSX / .XLS</small>
+        <span class="file-name"></span>
+    </label>
+
+    {% if state.pendidikan[code] %}
+        <div class="file-ok">✓ {{ state.pendidikan[code] }}</div>
+    {% endif %}
+
+    <button class="btn primary full" type="submit">Upload Data {{ code }}</button>
+</form>
+{% endif %}
+{% endfor %}
+</div>
+
+<div class="page-actions">
+    <a class="btn secondary" href="{{ url_for('jenjang') }}">← Kembali</a>
+    <a class="btn primary big" href="{{ url_for('ipm_kemiskinan') }}">Lanjut ke IPM & Kemiskinan →</a>
+</div>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="page-head centered">
+    <span class="eyebrow">TAHAP 05</span>
+    <h2>Hasil Analisis</h2>
+    <p>Halaman akhir untuk menampilkan hasil segmentasi, evaluasi, dan visualisasi penelitian.</p>
+</div>
+
+<div class="result-placeholder">
+    <div class="result-icon">◉</div>
+    <h2>Hasil analisis akan tampil di sini</h2>
+    <p>Area ini siap dihubungkan dengan backend analisis Python untuk preprocessing, Hierarchical Clustering, evaluasi cluster, Decision Tree, tabel profil wilayah, dan visualisasi.</p>
+    <div class="result-tags">
+        <span>Cluster</span><span>Dendrogram</span><span>Decision Tree</span><span>Profil Wilayah</span>
+    </div>
+</div>
+
+<div class="result-grid">
+    <div class="result-box"><span>Jumlah Cluster</span><strong>—</strong></div>
+    <div class="result-box"><span>Silhouette Score</span><strong>—</strong></div>
+    <div class="result-box"><span>Jumlah Wilayah</span><strong>—</strong></div>
+</div>
+
+<div class="page-actions">
+    <a class="btn secondary" href="{{ url_for('review') }}">← Kembali ke Review</a>
+    <a class="btn primary" href="{{ url_for('dashboard') }}">Kembali ke Dashboard</a>
+</div>
+
+{% endblock %}
